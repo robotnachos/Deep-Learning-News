@@ -1,6 +1,7 @@
 package com.example.android.deeplearningnews;
 
 import android.text.TextUtils;
+import android.text.format.DateUtils;
 import android.util.Log;
 
 import org.json.JSONArray;
@@ -15,8 +16,13 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.nio.charset.Charset;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
+import java.util.TimeZone;
 
 /**
  * Created by sal on 3/7/17.
@@ -156,6 +162,7 @@ public class QueryUtils {
                 String headline = oneResult.getString("webTitle");
                 String url = oneResult.getString("webUrl");
                 String date = oneResult.getString("webPublicationDate");
+                String timeAgo = formatDate(date);
                 String section = oneResult.getString("sectionName");
                 JSONArray tagsArray = oneResult.getJSONArray("tags");
                 String author = "";
@@ -168,7 +175,7 @@ public class QueryUtils {
                         author += firstObject.getString("webTitle");
                     }
                 }
-                newsList.add(new News(headline, author, date, section, url));
+                newsList.add(new News(headline, author, timeAgo, section, url));
             }
 
         } catch (JSONException e) {
@@ -180,6 +187,25 @@ public class QueryUtils {
 
         // Return the list of news
         return newsList;
+    }
+
+
+    private static String formatDate(String rawDate) {
+        long nowTime = System.currentTimeMillis();
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'", Locale.US);
+        dateFormat.setTimeZone(TimeZone.getTimeZone("GMT"));
+        try {
+            Date convertedDate = dateFormat.parse(rawDate);
+            CharSequence agoTime = DateUtils.getRelativeTimeSpanString(
+                    convertedDate.getTime(),
+                    nowTime,
+                    DateUtils.SECOND_IN_MILLIS,
+                    DateUtils.FORMAT_ABBREV_RELATIVE);
+            return agoTime.toString();
+        } catch (ParseException e) {
+            Log.e("QueryUtils", "Error parsing JSON date: ", e);
+            return "";
+        }
     }
 
 }
