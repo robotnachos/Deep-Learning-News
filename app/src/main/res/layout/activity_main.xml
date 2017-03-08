@@ -1,35 +1,41 @@
 <?xml version="1.0" encoding="utf-8"?>
+
+
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <!-- Layout for a list of news articles -->
-    <ListView
-        android:id="@+id/list"
+    <android.support.v4.widget.SwipeRefreshLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/swiperefresh"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:divider="@color/colorDivider"
-        android:dividerHeight="1dp"
-        android:orientation="vertical"
-        android:paddingLeft="16dp"
-        android:paddingRight="16dp"
-        android:scrollbarStyle="outsideInset" />
+        android:layout_height="match_parent">
+        <!-- Layout for a list of news articles -->
+        <ListView
+            android:id="@+id/list"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:divider="@color/colorDivider"
+            android:dividerHeight="1dp"
+            android:orientation="vertical"
+            android:paddingLeft="16dp"
+            android:paddingRight="16dp"
+            android:scrollbarStyle="outsideInset" />
 
-    <!-- Empty view is only visible when the list has no items. -->
-    <!--   <TextView
-           android:id="@+id/empty_view"
-           android:layout_width="wrap_content"
-           android:layout_height="wrap_content"
-           android:layout_centerInParent="true"
-           android:textAppearance="?android:textAppearanceMedium" />
+        <!-- Empty view is only visible when the list has no items. -->
+        <TextView
+            android:id="@+id/empty_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:textAppearance="?android:textAppearanceMedium" />
 
-       <ProgressBar
-           android:id="@+id/loading_indicator"
-           style="@style/Widget.AppCompat.ProgressBar"
-           android:layout_width="wrap_content"
-           android:layout_height="wrap_content"
-           android:layout_centerInParent="true"
-           />
+        <ProgressBar
+            android:id="@+id/loading_indicator"
+            style="@style/Widget.AppCompat.ProgressBar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true" />
 
-   -->
+
+    </android.support.v4.widget.SwipeRefreshLayout>
 </RelativeLayout>

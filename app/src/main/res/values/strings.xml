@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">Deep Learning News</string>
+    <string name="no_news_today">News not found.</string>
 </resources>
